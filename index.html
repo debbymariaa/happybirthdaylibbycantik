@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg-start: #ffe4ec;
-      --bg-end: #e40044;
+      --bg-end: #ffe4ec;
       --card-bg: #ffffff;
       --accent: #820026;
       --accent-hover: #5b001b;
@@ -167,10 +167,22 @@
       transform: scale(1) translateY(0);
     }
 
-    .cake-icon {
-      font-size: 46px;
-      margin-bottom: 10px;
+    .bouquet-img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      margin: 0 auto 12px;
       display: block;
+      animation: gentleSway 3s ease-in-out infinite;
+    }
+
+    @keyframes gentleSway {
+      0%, 100% {
+        transform: rotate(-3deg) translateY(0);
+      }
+      50% {
+        transform: rotate(3deg) translateY(-4px);
+      }
     }
 
     .popup-title {
@@ -228,10 +240,10 @@
 
   <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
     <div class="popup-card">
-      <span class="cake-icon" aria-hidden="true">🎂</span>
+      <img src="hydrangea-removebg-preview.png" alt="Buket Bunga Hydrangea" class="bouquet-img" />
       <h2 class="popup-title" id="popupTitle">Selamat Ulang Tahun!</h2>
       <div class="popup-message">
-        Selamat ulang tahun Libby <3 im glad our path crossed, and i get to know a sweet soul like you. libby kamu rasa syukur yang aku teriakan dengan besar, rambutmu jatuh cantik sekali dibawah temaram lampu dan kemudian aku berdoa agar bisa melihatmu mengulang tahun sejuta tahun lagi. have a wonderful birthday libby zefanya!
+        Selamat ulang tahun Libby  :3 im glad our path crossed, and i get to know a sweet soul like you. libby kamu rasa syukur yang aku teriakan dengan besar, rambutmu jatuh cantik sekali dibawah temaram lampu dan kemudian aku berdoa agar bisa melihatmu mengulang tahun sejuta tahun lagi. have a wonderful birthday libby zefanya!
       </div>
       <p class="sign-off">Dari aku dan rasa syukurku yang sebesar jupiteeeeeer!!!</p>
       <button class="btn-close" id="closeBtn" type="button">Tutup </button>
@@ -267,13 +279,28 @@
       }
     });
 
-    const symbols = ["𐫱", "❀", "✦", "𝄞" ];
+    const symbols = ["𐫱", "lily-removebg-preview.png", "✦", "𝄞"];
     for (let i = 0; i < 18; i++) {
-      const el = document.createElement("span");
+      const currentItem = symbols[i % symbols.length];
+      let el;
+
+      if (currentItem.endsWith(".png")) {
+        el = document.createElement("img");
+        el.src = currentItem;
+        el.alt = "";
+        const size = 22 + Math.random() * 14;
+        el.style.width = `${size}px`;
+        el.style.height = `${size}px`;
+        el.style.objectFit = "contain";
+        el.style.opacity = "0.75";
+      } else {
+        el = document.createElement("span");
+        el.textContent = currentItem;
+        el.style.fontSize = `${14 + Math.random() * 16}px`;
+      }
+
       el.className = "floating-heart";
-      el.textContent = symbols[i % symbols.length];
       el.style.left = `${Math.random() * 100}%`;
-      el.style.fontSize = `${14 + Math.random() * 16}px`;
       el.style.animationDuration = `${6 + Math.random() * 6}s`;
       el.style.animationDelay = `${Math.random() * 6}s`;
       heartBg.appendChild(el);
